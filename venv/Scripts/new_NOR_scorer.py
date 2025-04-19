@@ -72,7 +72,16 @@ def key_release(key):
 def listener_cont_menu():
   with keyboard.Listener(on_press=key_press, on_release=key_release) as listener:
     listener.join()
-  return input("\nPress [y] to score next animal, press [n] to return to the main menu: ") == "y" ## check if input is y or n or else re-ask?
+    while True:
+      next_video = input("\nPress [y] to score next animal, press [n] to return to the main menu: ")
+      if next_video == "y":
+        return True
+      elif next_video == "n":
+        print("\nReturning to the main menu")
+        return False
+      else:
+        print("\nInvalid input, please try again")
+        pass
 
 
 # Main script
