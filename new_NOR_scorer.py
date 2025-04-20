@@ -28,6 +28,8 @@ def rename_key(key):
 
 
 def key_press(key):
+  """ If left or right key is pressed, log the timepoint of key press """
+
   global timefirst
 
   if key == keyboard.Key.left or key == keyboard.Key.right:
@@ -41,6 +43,13 @@ def key_press(key):
 
 
 def key_release(key):
+  """ If the pressed key is left or right key, check if the key has been pressed before. If not, add/log it to the dictionary
+    and set its value to 0. If it already exists, calculate press duriation in that instance, and add it to the previous
+    press durations for that key.
+    
+    If the pressed key is esc key, append the total key press durations to score list, print total left and right press 
+    duration in s"""
+
   global timefirst
 
   if key == keyboard.Key.left or key == keyboard.Key.right:
@@ -61,8 +70,8 @@ def key_release(key):
 
   elif key == keyboard.Key.esc:
     score_list.append(individual_score)
-    print(f"individual_score = {individual_score}")
-    print(f"score_list = {score_list}")
+    # print(f"individual_score = {individual_score}")
+    # print(f"score_list = {score_list}")
     print("\n ======= TOTAL ======= \n")
     for key_time in individual_score:
       print(f"{key_time} is pressed for a total of {individual_score[key_time]:.3f} seconds")
@@ -70,6 +79,7 @@ def key_release(key):
 
 
 def listener_cont_menu():
+  """" Start listening for key presses and ask if user will continue scoring or wants to stop and return to main menu"""
   with keyboard.Listener(on_press=key_press, on_release=key_release) as listener:
     listener.join()
     while True:
@@ -95,7 +105,7 @@ def start_scoring():
 
 def format_score_list():
   for individual_score in score_list:
-    print(f"- Left object: {individual_score['Left key']} s, \t Right object: {individual_score['Right key']} s")
+    print(f"- Left object: {individual_score['Left key']} s \t Right object: {individual_score['Right key']} s")
 
 
 # Menu actions
